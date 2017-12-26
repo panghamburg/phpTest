@@ -32,7 +32,7 @@ print_r($keywords);
 $chars = preg_split("//", 'string', -1, PREG_SPLIT_NO_EMPTY);
 print_r($chars);
 
-$string = 'send personal email to ben@forta.com or ben.forta@forta.com if your about message email ben@urgent.forta.com';
+$string = 'send personal email to ben@forta.com or ben.forta@forta.com if your about message email ben@urgent.forta.com Se';
 preg_match_all("/[\w.]+@[\w.]+\.\w+/", $string, $matches);
 echo '<pre/>';
 print_r($matches);
@@ -40,3 +40,28 @@ print_r($matches);
 $url = 'http://www.forta.com or https://www.forta.cn.com';
 preg_match_all("/http[s]?:\/\/[\w.]+/", $url, $matches);
 print_r($matches);
+
+preg_match_all("/[sS][^l]/", $string, $matches);
+print_r($matches);
+
+$str1 = '03-11-29 03/11/29 03.11.29';
+preg_match_all('/03[.-\/]11[.-\/]29/', $str1, $matches);
+print_r($matches);
+
+$str2 = 'From Subject Date, hello he1232';
+preg_match_all('/\b[A-Za-z]+\b/', $str2, $matches);//单词为单位
+print_r($matches);
+
+$str3 = '$33.2345678';
+preg_match('/\$[0-9]+(\.[0-9])/', $str3, $matches);
+print_r($matches);
+
+$url1 = 'http://www.runoob.com:80/html/html-tutorial.html';
+//preg_match_all('/(\w+)\:\/\/([^\:]+)(:\d*)?([^# ]*)/', $url1, $matches);
+preg_match('/http:\/\/(.+)\:(?:\d*)\/*/', $url1, $matches);
+print_r($matches);
+
+$str4 = 'sales1.xls orders3.xls sales2.xls na1.xls sa1.xls na.xls sales.xls';
+preg_match_all('/\b[ns]a(.*?)[^0-9]\.xls\b/', $str4, $matches);
+print_r($matches);
+

@@ -16,7 +16,7 @@ class PdoMysql
     private $autoCommit = true;
     protected $transactionCount = 0;
     private $DBPress = 'test_';
-    protected $res = '';
+    public $res = '';
 
     public function __construct()
     {
@@ -112,20 +112,12 @@ class PdoMysql
 
     public function query($sql, $return=false)
     {
-        $result = $this->linkId->query($sql);
-        if($result) {
-            $this->res = $result;
-        }
-        return $result;
+        $this->res = $this->linkId->query($sql);
     }
 
     public function exec($sql)
     {
-        $result = $this->linkId->exec($sql);
-        if($result) {
-            $this->res = $result;
-        }
-        return $result;
+        $this->res = $this->linkId->exec($sql);
     }
 
     public function fetch()
@@ -136,5 +128,10 @@ class PdoMysql
     public function fetchAll()
     {
         return $this->res->fetchAll();
+    }
+
+    public function backInstallId()
+    {
+        return $this->linkId->lastInsertId();
     }
 }

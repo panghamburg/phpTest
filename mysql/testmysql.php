@@ -3,10 +3,11 @@ include './PdoMysql.php';
 $conn = new PdoMysql();
 
 $sql = 'show tables;';
-$sql = 'select * from salaries limit 20';
+$sql = 'select * from salaries limit 2';
 $conn->query($sql);
 //echo '<pre/>';
-//print_r($conn->fetchAll());
+//print_r($conn->backInstallId());die;
+//var_dump($conn->backInstallId());die;
 
 //function curl_get($url)
 //{
@@ -34,10 +35,24 @@ EOF;
 //$body_match = "/<head>(.*)<\/head>/";
 //preg_match($body_match, $str, $html_data_1);
 $match_1 = '/<div class="clearfixed">(.*?)<\/div>/';
+$match_2 = '/<p><a.*>(.*?)<\/a><\/p>/';
+$match_3 = '/<a onclick=(.*?)>(.*?)<\/a>/';
 preg_match_all($match_1, $str, $html_data_1);
 //print_r($html_data_1[0]);
 $array_data_1 = $html_data_1[0];
+//print_r($array_data_1[0]);
 //echo count($html_data_1[0]);
 foreach($array_data_1 as $key => $value) {
-    echo $value;die;
+    preg_match($match_2, $value, $array_data_2);
+    $cate_name = $array_data_2[1];
+    preg_match_all($match_3, $value, $array_data_3);
+    $sql_1 = "insert into job_title (`name`) VALUE ('$cate_name')";
+    $conn->exec($sql_1);
+    $last_id = $conn->backInstallId();
+//    echo $last_id;die;
+    foreach($array_data_3[2] as $contvalue) {
+        $sql_2 = "insert into job_title (`cate_id`, `name`) VALUE ($last_id,'$contvalue')";
+//        $sql_2 = 'insert into job_title (`cate_id`, `name`) VALUE ('.$last_id.','. "'".$contvalue."'".')';//单引号写法
+        $conn->exec($sql_2);
+    }
 }
