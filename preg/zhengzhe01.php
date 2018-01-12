@@ -65,3 +65,12 @@ $str4 = 'sales1.xls orders3.xls sales2.xls na1.xls sa1.xls na.xls sales.xls';
 preg_match_all('/\b[ns]a(.*?)[^0-9]\.xls\b/', $str4, $matches);
 print_r($matches);
 
+$str5 = '<meta content="text/html; charset=utf-8" http-equiv="content-type"> ';
+//preg_match('/<meta[^>]*?charset=([^"]+)"/', $str5, $matches);
+preg_match('/charset=(.*?)"/', $str5, $matches);
+//preg_match_all('/()/', $str5, $matches);
+print_r($matches);
+
+$str6 = '<p>xls orders3</p>';
+preg_match_all('/<([^>]+)/', $str6, $matches);
+print_r($matches);
