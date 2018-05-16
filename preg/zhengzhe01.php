@@ -74,3 +74,6 @@ print_r($matches);
 $str6 = '<p>xls orders3</p>';
 preg_match_all('/<([^>]+)/', $str6, $matches);
 print_r($matches);
+
+$str7 = '/v1/upload-media';
+//preg_match()
